@@ -2,14 +2,13 @@ from discord.ext import commands, tasks
 from datetime import date, time, datetime, timedelta
 import traceback
 import asyncio
-import bugmsgs
+import bugmsgs, questdata
 
 CODE_ROLEID = "<@&940176217896812544>"
 
 questChannel = 940625405742841866
 questChannel = 940186747638251520
 
-questFirstDay = date(2022, 2, 7)
 questModuleDuration = [
     [date(2022, 2, 7), date(2022, 2, 7), 2925],
     [date(2022, 2, 8), date(2022, 2, 9), 1463],
