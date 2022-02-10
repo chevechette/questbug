@@ -18,7 +18,8 @@ import traceback
 from datetime import datetime
 
 inner_cogs = {
-    'cogs.reminder'
+    'cogs.reminder',
+    'cogs.info'
 }
 
 class questBot(commands.Bot):

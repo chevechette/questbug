@@ -2,16 +2,9 @@ from discord.ext import commands, tasks
 from datetime import date, time, datetime, timedelta
 import traceback
 import asyncio
+import bugmsgs
 
 CODE_ROLEID = "<@&940176217896812544>"
-
-MSG_QUESTREMIND = "{} !\nIl est {} HEURES ! Tout va BIEN ! ... Si vous avez déjà Quest du moins.\n"
-MSG_QUESTREMIND += "Le code d'aujourd'hui est **{}** ! Allez vous émmarger sur http://quest.ajc.didierr.odns.fr/"
-MSG_QUESTCODE = "{}!\nLe code d'aujourd'hui est {} ! Allez vous émmarger sur http://quest.ajc.didierr.odns.fr/"
-MSG_ALIVE = "https://media0.giphy.com/media/YEL7FJP6ed008/giphy.gif?cid=ecf05e47u10m4ufjbala1sc4k758gopnb7tihj8vit26aefz&rid=giphy.gif&ct=g"
-
-ERR_IDK = "https://media2.giphy.com/media/LOQJOHXx1mozCccfev/giphy.gif?cid=ecf05e47sw7v0984sua5uietrnjfzyu0n92b1c54ircp4qb1&rid=giphy.gif&ct=g"
-ERR_NOTTODAY = "https://c.tenor.com/8V2UeHlLEekAAAAM/sleeping-sleep.gif"
 
 questChannel = 940625405742841866
 questChannel = 940186747638251520
@@ -78,26 +71,21 @@ class ReminderCog(commands.Cog):
         return ((futureExec - currentDatetime).total_seconds())
 
     @commands.command()
-    async def ping(self, ctx):
-        await ctx.channel.send("Yes, I am online!")
-
-    @commands.command()
     async def currentQuest(self, ctx):
         try:
             todaysCode = ReminderCog.getModuleCode()
-            msg = ERR_IDK if todaysCode == 0000 else MSG_QUESTCODE.format(CODE_ROLEID, todaysCode)
+            msg = bugmsgs.ERR_IDK if todaysCode == 0000 else bugmsgs.MSG_QUESTCODE.format(CODE_ROLEID, todaysCode)
             print(msg)
             if (datetime.today().weekday() >= 5):
-                msg = ERR_NOTTODAY
+                msg = bugmsgs.ERR_NOTTODAY
             await ctx.channel.send(msg)
         except Exception as e:
             traceback.print_exc()
-            await ctx.channel.send(ERR_IDK)
+            await ctx.channel.send(bugmsgs.ERR_IDK)
 
     async def sendRemindQuest(self):
         currentHour = datetime.now().hour
-        #await self.bot.get_channel(questChannel).send(MSG_ALIVE)
-        await self.bot.get_channel(questChannel).send(MSG_QUESTREMIND.format(
+        await self.bot.get_channel(questChannel).send(bugmsgs.MSG_QUESTREMIND.format(
             CODE_ROLEID, currentHour, ReminderCog.getModuleCode()
             ))
 
