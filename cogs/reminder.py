@@ -5,15 +5,16 @@ import asyncio
 
 CODE_ROLEID = "<@&940176217896812544>"
 
-MSG_QUESTREMIND = "{} !\nIl est {} HEURES ! Tout va BIEN ! ... Si vous avez déjà Quest aujourd'hui du moins.\n"
+MSG_QUESTREMIND = "{} !\nIl est {} HEURES ! Tout va BIEN ! ... Si vous avez déjà Quest du moins.\n"
 MSG_QUESTREMIND += "Le code d'aujourd'hui est **{}** ! Allez vous émmarger sur http://quest.ajc.didierr.odns.fr/"
 MSG_QUESTCODE = "{}!\nLe code d'aujourd'hui est {} ! Allez vous émmarger sur http://quest.ajc.didierr.odns.fr/"
 MSG_ALIVE = "https://media0.giphy.com/media/YEL7FJP6ed008/giphy.gif?cid=ecf05e47u10m4ufjbala1sc4k758gopnb7tihj8vit26aefz&rid=giphy.gif&ct=g"
 
 ERR_IDK = "https://media2.giphy.com/media/LOQJOHXx1mozCccfev/giphy.gif?cid=ecf05e47sw7v0984sua5uietrnjfzyu0n92b1c54ircp4qb1&rid=giphy.gif&ct=g"
+ERR_NOTTODAY = "https://c.tenor.com/8V2UeHlLEekAAAAM/sleeping-sleep.gif"
 
-questChannel = 940186747638251520
 questChannel = 940625405742841866
+questChannel = 940186747638251520
 
 questFirstDay = date(2022, 2, 7)
 questModuleDuration = [
@@ -86,6 +87,8 @@ class ReminderCog(commands.Cog):
             todaysCode = ReminderCog.getModuleCode()
             msg = ERR_IDK if todaysCode == 0000 else MSG_QUESTCODE.format(CODE_ROLEID, todaysCode)
             print(msg)
+            if (datetime.today().weekday() >= 5):
+                msg = ERR_NOTTODAY
             await ctx.channel.send(msg)
         except Exception as e:
             traceback.print_exc()
@@ -103,6 +106,9 @@ class ReminderCog(commands.Cog):
         print("ACTIVATE MY TRAP CARD")
         # Add a dismissal to avoid double message ?
         currentDT = datetime.now()
+        weekday = currentDT.weekday()
+        if (weekday >= 5):
+            return
         print(ReminderCog.getModuleCode())
         if (currentDT.hour == 9 and currentDT.minute < 30):
             print("Good morning America !")
