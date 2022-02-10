@@ -102,15 +102,14 @@ class ReminderCog(commands.Cog):
     async def remindQuest(self):
         print("ACTIVATE MY TRAP CARD")
         # Add a dismissal to avoid double message ?
-        currentHour = datetime.now().hour
+        currentDT = datetime.now()
         print(ReminderCog.getModuleCode())
-        print(currentHour)
-        if (currentHour == 9):
+        if (currentDT.hour == 9 and currentDT.minute < 30):
             print("Good morning America !")
             await asyncio.sleep(self.secondsUtilTime(9, 30))
             print(datetime.now())
             await self.sendRemindQuest()
-        elif (currentHour == 13) :
+        elif (currentDT.hour == 13) :
             print("The eleventh hour")
             await asyncio.sleep(self.secondsUtilTime(14, 00))
             print(datetime.now())

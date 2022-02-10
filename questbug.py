@@ -4,7 +4,6 @@
 
 # TD : Message standard
 # TD : Charger tous event
-# TD : Déclancher les events
 # TD : Error handling
 # TD : Add cog to ask for linl
 # TD : gitignore
@@ -14,9 +13,9 @@
 
 import discord
 from discord.ext import commands, tasks
-import discordconfig
+from discordconfig import DISCORD_TOKEN
 import traceback
-from datetime import date, datetime
+from datetime import datetime
 
 inner_cogs = {
     'cogs.reminder'
@@ -56,7 +55,7 @@ class questBot(commands.Bot):
         # toutVaBien()
 
 def main():
-    discordToken = discordconfig.DISCORD_TOKEN
+    discordToken = DISCORD_TOKEN
     questBug = questBot()
     questBug.run(discordToken, reconnect=True)
 
