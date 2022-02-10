@@ -1,22 +1,17 @@
 # Questbug Bot
 
-# TD : export config (token) to different file
-
-# TD : Message standard
-# TD : Charger tous event
 # TD : Error handling
-# TD : Add cog to ask for linl
-# TD : gitignore
 # TD : Logging system
-
-# Project deadlines
 
 import discord
 from discord.ext import commands, tasks
-from discordconfig import DISCORD_TOKEN
 import traceback
 from datetime import datetime
 
+# from local config
+from discordconfig import DISCORD_TOKEN
+# list of modules (named cogs) to set up.
+# each cog contains commands
 inner_cogs = {
     'cogs.reminder',
     'cogs.info'
@@ -25,6 +20,8 @@ inner_cogs = {
 class questBot(commands.Bot):
     def __init__(self):
         questIntents = discord.Intents.default()
+        # Intent set for future reading of members
+        # and properly answering messages.
         questIntents.members = True
         super().__init__(command_prefix='?', intents=questIntents)
 
@@ -45,21 +42,14 @@ class questBot(commands.Bot):
         for guild in self.guilds:
             print("The QuestBug is connected to " + guild.name)
 
-            
-    def toutVaBien():
-        message = "Il est {} ! Tout va BIEN @everyone !\n Le code d'aujourd'hui est {} ! Allez vous émmarger sur http://quest.ajc.didierr.odns.fr/"
-        message = message.format(datetime.now(), 1234)
-        print(message)
-
-    # @tasks.loop(seconds=5.0)
-    # async def printer(self):
-        # toutVaBien()
-
 def main():
+    # REMINDER : DISCORD_TOKEN is saved in discordconfig.py
+    # which is not included in this repository.
     discordToken = DISCORD_TOKEN
     questBug = questBot()
     questBug.run(discordToken, reconnect=True)
 
+# if questbug.py is launched through command line
+# this serves as execution entrypoint.
 if __name__ == "__main__":
-    print("Let's work !")
     main()

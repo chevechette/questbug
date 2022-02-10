@@ -1,10 +1,12 @@
 from datetime import date
 
+# Role "@Consultant" for tagging
 CODE_ROLEID = "<@&940176217896812544>"
 
-QUEST_CHANNEL = 940625405742841866
+# Channel to send reminder
 QUEST_CHANNEL = 940186747638251520
 
+# Loading module duration data [from, to, module_code]
 QUEST_MOD_DURATION = [
     [date(2022, 2, 7), date(2022, 2, 7), 2925],
     [date(2022, 2, 8), date(2022, 2, 9), 1463],

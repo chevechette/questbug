@@ -6,6 +6,8 @@ class InfoCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
+    # ?help ping, will show HELP,
+    # ?help, will show BRIEF
     @commands.command(
 	    help=bugmsgs.HELP_PING,
 	    brief=bugmsgs.BRIEF_PING

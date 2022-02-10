@@ -1,6 +1,7 @@
-# Personal
+# Personal settings
 .vscode/
 settings.json
+# Bot configuration
 discordconfig.py
 
 # Byte-compiled / optimized / DLL files
