@@ -49,7 +49,7 @@ class ReminderCog(commands.Cog):
     @commands.command()
     async def evalDay(self, ctx):
         try:
-            msg = bugmsgs.MSG_EVAL_Y if ReminderCog.isevaluationDay() else bugmsgs.MSG_EVAL_N
+            msg = bugmsgs.MSG_EVAL_Y.format(ReminderCog.getModuleCode()) if ReminderCog.isevaluationDay() else bugmsgs.MSG_EVAL_N
             await ctx.channel.send(msg)
         except Exception as e:
             traceback.print_exc()
