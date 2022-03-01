@@ -44,7 +44,7 @@ class ReminderCog(commands.Cog):
         nextTime = time(hours, minutes, seconds)
         isTommorow = 1 if (currentDatetime.time() > nextTime) else 0
         futureExec = datetime.combine(currentDatetime + timedelta(days=isTommorow), nextTime)
-        return ((futureExec - currentDatetime).total_seconds())
+        return ((futureExec - currentDatetime).total_seconds() + 1)
     
     @commands.command()
     async def evalDay(self, ctx):
@@ -64,6 +64,7 @@ class ReminderCog(commands.Cog):
             if (datetime.today().weekday() >= 5):
                 msg = bugmsgs.ERR_NOTTODAY
             await ctx.channel.send(msg)
+            await ctx.channel.send("Et n'oubliez pas BBB ! - Sylvain")
         except Exception as e:
             traceback.print_exc()
             await ctx.channel.send(bugmsgs.ERR_IDK)
@@ -73,6 +74,7 @@ class ReminderCog(commands.Cog):
         await self.bot.get_channel(questdata.QUEST_CHANNEL).send(bugmsgs.MSG_QUESTREMIND.format(
             questdata.CODE_ROLEID, currentHour, ReminderCog.getModuleCode()
             ))
+        await self.bot.get_channel(questdata.QUEST_CHANNEL).send("Et n'oubliez pas BBB ! - Sylvain")
 
     @tasks.loop(hours=1)
     async def remindQuest(self):
